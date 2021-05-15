@@ -14,6 +14,8 @@ module.exports =   (sequelize, DataTypes) => {
       for(const a of PROTECTED_ATTRIBUTES){
         delete attributes[a];
       }
+
+      return attributes;
     }
     /**
      * Helper method for defining associations.
@@ -27,7 +29,10 @@ module.exports =   (sequelize, DataTypes) => {
   Users.init({
     username: DataTypes.STRING,
     password: DataTypes.STRING,
-    email: DataTypes.STRING
+    apiKey: DataTypes.STRING,
+    email: DataTypes.STRING,
+    lastLoginAt: DataTypes.DATE,
+    lastKeyAt: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Users',
