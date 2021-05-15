@@ -1,18 +1,16 @@
-import User from './user.model';
+import model from '../../db/models';
+const {Users}  = model;
 
 export const register = async (req, res, next) => {
     try {
-      
-      const user = await User.create({
-        name: req.body.name,
-        password: req.body.password,
-        email: invite.email,
+
+      const user = await Users.create({
+        username: req.username,
+        password:req.password,
+        email: req.email
       });
-      console.log("im here");
-    //  const u = user.auth();
-      console.log(user);
      
-      return res.status(200).json(u);
+      return res.status(200).send(user);
     } catch (err) {
       if (err) next(err);
     }

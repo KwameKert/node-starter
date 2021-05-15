@@ -1,5 +1,7 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
+const logger = require('morgan');
+
 //import errorhandler from 'errorhandler';
 import { isDev } from '../config/constants';
 //import { setupPassport } from '../config/passport';
@@ -14,7 +16,8 @@ export default (app) => {
  // setupPassport(app);
 
   if (isDev()) {
-   // app.use(morgan('dev'));
+    app.use(logger
+      ('dev'));
    // app.use(errorhandler());
   }
 };

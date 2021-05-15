@@ -8,7 +8,6 @@ pg.defaults.parseInt8 = true;
 const sequelize = new Sequelize(constants.DB_NAME, constants.DB_USER, constants.DB_PASS, {
   host: constants.DB_HOSTNAME,
   dialect: 'postgres',
-  operatorsAliases: false,
 
   pool: {
     max: 16,
@@ -18,11 +17,11 @@ const sequelize = new Sequelize(constants.DB_NAME, constants.DB_USER, constants.
   },
   define: {
     freezeTableName: true,
-    hooks: {
-      beforeCreate: (model) => {
-        model.id = Random.id();
-      },
-    },
+    // hooks: {
+    //   beforeCreate: (model) => {
+    //     model.id = Random.id();
+    //   },
+    // },
   },
   logging: isDev(),
   // logging: true,

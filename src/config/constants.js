@@ -37,7 +37,6 @@ const prodConfig = {
 }
 
 export function  envConfig (env = process.env.NODE_ENV){
-  console.log("im here");
   switch(env){
     case 'development':
       return devConfig;

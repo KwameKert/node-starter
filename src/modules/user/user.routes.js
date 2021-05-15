@@ -4,6 +4,6 @@ import * as userController from './user.controller';
 
 const UserRouter = Router();
 
-UserRouter.post('/',userController.register)
+UserRouter.get('/',userController.register)
 
 export default UserRouter;
