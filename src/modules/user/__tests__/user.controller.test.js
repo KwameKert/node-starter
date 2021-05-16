@@ -35,21 +35,28 @@ function buildReq({...overides} = {}){
     return res
     }
 
-
-    test('user registration', async () => {
+ describe('Initial Test', () => {
+    test('user registration should return 200', async () => {
 
         let req = buildReq({body: {email: 'kwames@gmail.com',  username: 'kwamekert', password: 'password'}});
         let res = buildRes();
         let nxtFxn = buildNext();
     
         await UserController.register(req, res, nxtFxn);
-       // expect(res.send).toHaveBeenCalledTimes(1);
        returnExpectations(res, HTTPStatus.CREATED);
-      //  expect(1 + 1).toBe(2);
       });
 
-// describe('Initial Test', () => {
-//     it('should test that 1 + 1 === 2', () => {
-//       expect(1+1).toBe(2)
-//     })
-//   })
+
+      test('user registration should return 400', async () => {
+
+        let req = buildReq({body: {email: 'kwames@gmail.com',  username: 'kwamekert', password: 'password'}});
+        let res1 = buildRes();
+        let res2 = buildRes();
+        let nxtFxn = buildNext();
+    
+        await UserController.register(req, res1, nxtFxn);
+        await UserController.register(req, res2, nxtFxn);
+      
+       returnExpectations(res2, HTTPStatus.BAD_REQUEST);
+      });
+    });

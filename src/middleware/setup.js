@@ -1,5 +1,6 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import {setupPassport} from '../config/passport';
 const logger = require('morgan');
 
 //import errorhandler from 'errorhandler';
@@ -13,7 +14,7 @@ export default (app) => {
   app.use(bodyParser.json());
  // app.use(methodOverride());
 
- // setupPassport(app);
+ setupPassport(app);
 
   if (isDev()) {
     app.use(logger
