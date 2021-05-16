@@ -32,24 +32,34 @@ export const register = async (req, res, next) => {
 
   export const login = async (req, res, next)=>{
     try{
-
       const user = await Users.findOne({where: {username: req.body.username}});
-
       if(!user || !user.authenticate(req.body.password)){
-        return res.status(HTTPStatus.NOT_FOUND).json({ message: 'User not found' });
+        return res.status(HTTPStatus.BAD_REQUEST).send({ message: 'Invalid credentials' });
       }
-
       const u = user.auth();
       await Users.update({lastLoginAt: Date.now()}, {where: {
         username: req.body.username
       }})
-      return res.status(HTTPStatus.OK).send(u);
-
+      return res.status(HTTPStatus.ACCEPTED).send(u);
     } catch (err) {
       console.error(err.message)
       if (err) next(err);
     }
   }
+
+export const gellAllUsers= async (req, res, next) =>{
+    try{
+      let users = await Users.findAll();
+      if(users.length < 1){
+        return res.status(HTTPStatus.NO_CONTENT).send({ message: 'UserS not found' });
+      }
+      return res.status(HTTPStatus.OK).send(users);
+    }catch (err) {
+      console.error(err.message)
+      if (err) next(err);
+    }
+}
+
 
 async function doesUsernameExists(username){
     return  await Users.findOne({where:{username} })
